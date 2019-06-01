@@ -1,13 +1,13 @@
 package Programa1;
 
-import Programa1.Cliente;
 
 public class Conta {
     private int numero;
     private float saldo;
     private float limite;
     private Cliente cliente;
-    //private float transferencia;
+
+
     public Conta( int numero, Float saldo, Float limite, Cliente cliente){
         this.numero = numero;
         this.saldo = saldo;
@@ -41,12 +41,7 @@ public class Conta {
             return this.limite;
         }
 
-        // public float getTransferencia(float valor)
-        // {if (valor <= (this.saldo )){
-        //  this. saldo = (this.saldo - valor );
-        // }else{
-        //    System.out.println("Saldo insuficiente");
-        //}
+
 
 
 }

@@ -35,7 +35,7 @@ public class Account {
 
     public void deposit(float value){
         float newBalance = this.getBalance() +value;
-        System.out.println("New balance after deposit : "+ newBalance);
+        System.out.println("Novo saldo : "+ newBalance);
         setBalance(newBalance);
 }
     public void transferTo(Account destino, float value){
