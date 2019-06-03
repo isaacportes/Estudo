@@ -2,11 +2,11 @@ package ContaBancaria;
 
 public class Account {
 
-    int accountnum;
+    int accountNum;
     private float balance;
 
-    public Account(int accountnum, float balance) {
-        this.accountnum = accountnum;
+    public Account(int accountNum, float balance) {
+        this.accountNum = accountNum;
         this.balance = balance;
     }
 
@@ -20,7 +20,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return ("Account number: "+this.accountnum+"\nAccount Balance: "+this.balance);
+        return ("Account number: "+this.accountNum+"\nAccount Balance: "+this.balance);
     }
 
     public void withdraw(float value){

@@ -2,6 +2,8 @@ package ContaBancaria;
 
 import Programa1.Cliente;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Programa {
@@ -12,7 +14,8 @@ public class Programa {
 
         Scanner in = new Scanner(System.in);
         float valor;
-        int conta;
+        int contaOrigem;
+        int contaDestino;
 
 
         Clientes c1 = new Clientes("Isaac G. Portes", 01, "Av, São Paulo, 2200", "isaacportes@gmail.com");
@@ -23,71 +26,64 @@ public class Programa {
         Account account_rebeca = new Account(002, 2000.0f);
         Account account_nathan = new Account(003,2000.0f);
 
+
+        Map<Integer, Account> banco = new HashMap<>();
+        banco.put(1,account_isaac);
+        banco.put(2,account_rebeca);
+        banco.put(3,account_nathan);
+
+        Map<Integer, Clientes> clientes = new HashMap<>();
+        clientes.put(01,c1);
+        clientes.put(02 ,c2);
+        clientes.put(03,c3);
+
         System.out.println("*************************//Menu//*********************************");
 
            do {
-               System.out.println("Escolha uma opção \n 1.Depositar\n 2.Sacar\n 3.Transferir\n 4.Inprimir Informações de conta\n 0.Sair");
+               System.out.println("Escolha uma opção \n 1.Depositar\n 2.Sacar\n 3.Transferir\n 4.Inprimir Informações de conta\n 5.Mostrar Saldo\n 0.Sair");
                valor = in.nextInt();
                if (valor == 1) {
                    System.out.println("*************************//DEPOSITAR//*********************************");
                    System.out.println("Quando você quer depositar?");
                    valor = in.nextInt();
-                   System.out.println("Qual conta vai depositar? \n01 Isaac Portes \n02 Rebeca Portes\n03 Nathan Portes");
-                   conta = in.nextInt();
-                   if (conta == 1) {
-                       account_isaac.deposit(valor);
-                   } else if (conta == 2) {
-                       account_rebeca.deposit(valor);
-                   }else if (conta == 3){
-                       account_nathan.deposit(valor);
-                   }
+                   System.out.println("Qual conta vai depositar? \n1. Isaac Portes \n2. Rebeca L. Portes\n3. Nathan Portes");
+                   contaOrigem = in.nextInt();
+                   banco.get(contaOrigem).deposit(valor);
+
                } else if (valor == 2) {
                    System.out.println("*************************//SACAR//*********************************");
-                   System.out.println("Qual conta vai sacar? \n01 Isaac Portes \n02 Rebeca Portes \n03 Nathan Portes");
-                   conta = in.nextInt();
+                   System.out.println("Qual conta vai sacar? \n1. Isaac Portes \n2. Rebeca L. Portes \n3. Nathan Portes");
+                   contaOrigem = in.nextInt();
                    System.out.println("Quanto quer sacar? ");
                    valor = in.nextInt();
-                   if (conta == 1) {
-                       account_isaac.withdraw(valor);
-                   } else if (conta == 2) {
-                       account_rebeca.withdraw(valor);
-                   }else if (conta == 3){
-                       account_rebeca.withdraw(valor);
-                   }
-                   else {
-                       System.out.println("Transferencia cancelada");
-                   }
+                   banco.get(contaOrigem).withdraw(valor);
+
                } else if (valor == 3) {
                    System.out.println("*************************//TRANSFERENCIA//*********************************");
-                   System.out.println("Qual conta vai transferir ? \n01 Isaac Portes \n02 Rebeca Portes\n 03Nathan Portes");
-                   valor = in.nextInt();
+                   System.out.println("Qual conta de Origem ? \n1. Isaac Portes \n2. Rebeca L. Portes\n3. Nathan Portes");
+                   contaOrigem = in.nextInt();
+                   System.out.println("Qual conta de Destino ? \n1. Isaac Portes \n2. Rebeca L. Portes\n3. Nathan Portes");
+                   contaDestino = in.nextInt();
                    System.out.println("Quanto vai transferir?");
-                   conta = in.nextInt();
-                   if (conta == 1) {
-                       account_rebeca.transferTo(account_isaac, valor);
-                       System.out.println("Successful transfer\n Novo  saldo: " + account_isaac + valor);
-                   } else if (conta == 2) {
-                       account_isaac.transferTo(account_rebeca, valor);
-                       System.out.println("Successful transfer\n Novo saldo: " + account_rebeca + valor);
-                   }else if(conta == 3){
+                   valor = in.nextInt();
+                   banco.get(contaOrigem).transferTo(banco.get(contaDestino),valor);
 
-                   }
                }else if (valor == 4){
-                   System.out.println("Qual conta você quer as informações?\n 01 Isaac G. Portes\n 02 Rebeca L. Portes\n 03 Nathan G. Portes");
-                   conta = in.nextInt();
-                   if (conta == 1){
-                       System.out.println(c1);
-                   }else if (conta == 2){
-                       System.out.println(c2);
-                   }else if (conta == 3){
-                       System.out.println(c3);
-                   }
+                   System.out.println("Qual conta você quer as informações?\n 1. Isaac G. Portes\n 2. Rebeca L. Portes\n 3. Nathan G. Portes");
+                   contaOrigem = in.nextInt();
+                  System.out.println(clientes.get(contaOrigem));
                }
-               else if (valor == 0) {
-                   System.out.println("Tchau");
+               else if (valor == 5) {
+                  System.out.println("what account do you want to see the balance?\n 1.Isaac G. Portes\n 2.Rebeca L. Portes\n 3.Nathan G. Portes");
+                  contaOrigem = in.nextInt();
+                  banco.get(contaOrigem).getBalance();
+                  System.out.println("Current Account Balance: " + banco.get(contaOrigem).getBalance());
+
                } else {
                }
            }while (valor > 0);
+
+
             // account_isaac.withdraw(1500.0f);
             // account_isaac.deposit(1500.0f);
 //            System.out.println("*************************//Account 002//*********************************");
